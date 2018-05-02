@@ -2,13 +2,26 @@
 #include <iostream>
 using namespace std;
 
+class colisiones {
+	int col;
+public:
+	void set (int n) {
+		col = n;
+	}
+	int get () {
+		return col;
+	}
+	
+	colisiones (){col = 0;}
+};
+
 template <class T>
 class nodo{
 public:
 	nodo <T>* iz;
 	nodo <T>* de;
 	nodo <T>* pa;
-	int colisiones;
+	colisiones col;
 	T dato;
 
 	void printall () {
@@ -55,9 +68,9 @@ public:
 	nodo (T d){
 		iz = de = pa = NULL;
 		dato = d;
-		colisiones = 0;
+		col.set (0);
 	}
-	nodo (){iz = de = pa = NULL; colisiones = 0;}
+	nodo (){iz = de = pa = NULL; col.set (0);}
 };
 
 template <class T>
@@ -110,7 +123,7 @@ public:
 		    comp++;
 			b = a;
 			if (x == (*a).dato) {
-				a -> colisiones++;
+				a -> col.set (a -> col.get() + 1);
 				return;
 			}
 			if (x < (*a).dato)
